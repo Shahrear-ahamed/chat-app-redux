@@ -5,9 +5,7 @@ import {useSelector} from "react-redux";
 export default function ChatItems() {
     const {user} = useSelector(state => state.auth) || {}
     const {email} = user || {};
-    console.log(email)
     const {data: conversations, isLoading, isError, error} = useGetConversationsQuery(email)
-    console.log(conversations)
     return (
         <ul>
             <li>

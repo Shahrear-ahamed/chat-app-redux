@@ -7,7 +7,7 @@ export default function Navigation() {
     const dispatch = useDispatch()
     const handleLogout = () => {
         dispatch(userLoggedOut())
-        localStorage.removeItem("auth")
+        localStorage.removeItem("Auth")
     }
     return (
         <nav className="border-general sticky top-0 z-40 border-b bg-violet-700 transition-colors">

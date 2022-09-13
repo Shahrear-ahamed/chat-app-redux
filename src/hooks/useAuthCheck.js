@@ -4,7 +4,7 @@ import { userLoggedIn } from "../features/auth/authSlice";
 
 const UseAuthCheck = () => {
   const dispatch = useDispatch();
-  const [authCheck, setAuthCheck] = useState(false);
+  const [authCheck, setAuthCheck] = useState(true);
 
   useEffect(() => {
     const localAuth = localStorage?.getItem("Auth");

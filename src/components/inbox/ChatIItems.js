@@ -1,6 +1,13 @@
 import ChatItem from "./ChatItem";
+import {useGetConversationsQuery} from "../../features/conversations/conversationsApi";
+import {useSelector} from "react-redux";
 
 export default function ChatItems() {
+    const {user} = useSelector(state => state.auth) || {}
+    const {email} = user || {};
+    console.log(email)
+    const {data: conversations, isLoading, isError, error} = useGetConversationsQuery(email)
+    console.log(conversations)
     return (
         <ul>
             <li>
@@ -9,18 +16,6 @@ export default function ChatItems() {
                     name="Saad Hasan"
                     lastMessage="bye"
                     lastTime="25 minutes"
-                />
-                <ChatItem
-                    avatar="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg"
-                    name="Sumit Saha"
-                    lastMessage="will talk to you later"
-                    lastTime="10 minutes"
-                />
-                <ChatItem
-                    avatar="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg"
-                    name="Mehedi Hasan"
-                    lastMessage="thanks for your support"
-                    lastTime="15 minutes"
                 />
             </li>
         </ul>

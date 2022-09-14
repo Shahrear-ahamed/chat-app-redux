@@ -1,5 +1,5 @@
-import {apiSlice} from "../api/apiSlice";
-import {userLoggedIn} from "./authSlice";
+import { apiSlice } from "../api/apiSlice";
+import { userLoggedIn } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,7 +9,7 @@ export const authApi = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
-            async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const result = await queryFulfilled;
 
@@ -36,22 +36,33 @@ export const authApi = apiSlice.injectEndpoints({
             query: (data) => ({
                 url: "/login",
                 method: "POST",
-                body: data
+                body: data,
             }),
-            async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const result = await queryFulfilled;
-                    const userCredential = {
-                        accessToken: result.data.accessToken,
-                        user: result.data.user
-                    }
-                    localStorage.setItem("Auth", JSON.stringify(userCredential))
-                    dispatch(userLoggedIn(userCredential))
-                } catch (e) {
 
+                    localStorage.setItem(
+                        "auth",
+                        JSON.stringify({
+                            accessToken: result.data.accessToken,
+                            user: result.data.user,
+                        })
+                    );
+
+                    dispatch(
+                        userLoggedIn({
+                            accessToken: result.data.accessToken,
+                            user: result.data.user,
+                        })
+                    );
+                } catch (err) {
+                    // do nothing
                 }
-            }
+            },
         }),
     }),
 });
-export const {useRegisterMutation, useLoginMutation} = authApi;
+
+export const { useLoginMutation, useRegisterMutation } = authApi;
